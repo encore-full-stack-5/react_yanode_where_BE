@@ -1,28 +1,14 @@
 
-const { Client } = require("pg");
-const DBinit = {
-    user: "where_db_admin",
-    host: "192.168.80.39",
-    database: "where_db",
-    password: "1234",
-    port: 5432,
-};
-
-const getQuery = async (q) => {
-    const client = new Client(DBinit);
-    client.connect();
-    const result = await client.query(q)
-    client.end();
-    return result;
-}
-
-exports.getNow = (e) => {
-    return getQuery("SELECT now()");
-}
+const pg = require('./pg_query_modul');
 
 exports.CustomerByLGN_ID = (lgn_id) => {
-    return getQuery("SELECT * FROM customer where \"LGN_ID\" = '" + lgn_id + "'");
+    return pg.getQuery("SELECT * FROM customer where \"LGN_ID\" = $1", [lgn_id]);
 }
+
 exports.CustomerByLGN_IDAndPASSWD = (lgn_id, passwd) => {
-    return getQuery("SELECT * FROM customer where \"LGN_ID\" = '" + lgn_id + "' AND \"PASSWD\" = '" + passwd + "'");
+    return pg.getQuery("SELECT * FROM customer where \"LGN_ID\" = $1 AND \"PASSWD\" = $2", [lgn_id, passwd]);
+}
+
+exports.createCustomer = (LGN_ID, PASSWD, CUST_NM) => {
+    return pg.updateQuery("insert into customer(\"LGN_ID\", \"PASSWD\", \"CUST_NM\") values ($1, $2, $3)", [LGN_ID, PASSWD, CUST_NM]);
 }
