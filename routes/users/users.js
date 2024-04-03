@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const storesRouter = require("./stores");
 const ordersRouter = require("./orders");
+const productsRouter = require("./products");
 
 router.post("/signup", (req, res) => {
   res.send("회원가입 화면입니다.");
@@ -26,5 +27,6 @@ router
 
 router.use("/stores", storesRouter);
 router.use("/orders", ordersRouter);
+router.use("/products", productsRouter);
 
 module.exports = router;
