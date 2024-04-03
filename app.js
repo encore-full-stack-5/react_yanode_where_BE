@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 const port = 3000;
 
-const usersRouter = require("./routes/users.js");
+const usersRouter = require("./routes/users/users");
 const cors = require("cors");
 
 app.use(
@@ -21,3 +21,5 @@ app.use("/users", usersRouter);
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
+module.exports = router;
