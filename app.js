@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const router = express.Router();
-const port = 3000;
+const port = 3001;
 
 const usersRouter = require("./routes/users/users");
 const ownersRouter = require("./routes/owners/owners");
