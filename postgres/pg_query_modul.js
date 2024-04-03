@@ -8,6 +8,14 @@ const DBinit = {
     port: 5432,
 };
 
+/**
+ * DB와 연결하고 입력된 작업을 실행합니다.
+ * 
+ * Transction을 사용하지 않습니다.
+ * @param {*} sql - 쿼리문 
+ * @param {*} values - $에 들어가는 값
+ * @returns `<return>.row = <Json>`
+ */
 exports.getQuery = async (sql, values) => {
     const client = new Client(DBinit);
     client.connect();
@@ -16,6 +24,14 @@ exports.getQuery = async (sql, values) => {
     return result;
 }
 
+/**
+ * DB와 연결하고 입력된 작업을 실행합니다.
+ * 
+ * Transction을 사용합니다.
+ * @param {*} sql - 쿼리문 
+ * @param {*} values - $에 들어가는 값
+ * @returns `<return>.row = <Json>`
+ */
 exports.updateQuery = async (sql, values) => {
     const client = new Client(DBinit);
     let result = null;

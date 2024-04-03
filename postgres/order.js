@@ -1,20 +1,17 @@
+//미완
 const pg = require('./pg_query_modul');
 
 //비번, useyn등 필요없는거 제외하는 수정필요
 /**
  * `Cusomer`Table에서 데이터ID와 일치하는 고객의 정보를 반환합니다.
- * @param {*} cust_id - 고객 ID
+ * @param {*} order_id - 고객 ID
  * @returns 해당 `Customer`의 정보가 모두 담긴 JSON
  */
-exports.getCustomerByCUST_ID = (cust_id) => {
-    return pg.getQuery("SELECT * FROM customer where \"CUST_ID\" = $1", [cust_id]);
+exports.getOrderIDByCUST_ID = (ord_id) => {
+    return pg.getQuery("SELECT * FROM customer where \"ORD_ID\" = $1", [ord_id]);
 }
 
-/**
- * `Cusomer`Table에서 계정명과 일치하는 고객의 정보를 반환합니다.
- * @param {*} lgn_id - 계정명
- * @returns 해당 `Customer`의 정보가 모두 담긴 JSON
- */
+
 exports.getCustomerByLGN_ID = (lgn_id) => {
     return pg.getQuery("SELECT * FROM customer where \"LGN_ID\" = $1", [lgn_id]);
 }
