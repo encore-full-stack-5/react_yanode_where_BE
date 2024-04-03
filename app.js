@@ -3,7 +3,7 @@ const app = express();
 const router = express.Router();
 const port = 3000;
 
-const userRouter = require("./routes/user");
+const usersRouter = require("./routes/users/users");
 const ownersRouter = require("./routes/owners/owners");
 
 const cors = require("cors");
@@ -22,7 +22,7 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-app.use("/user", userRouter);
+app.use("/users", usersRouter);
 app.use("/owners", ownersRouter);
 
 module.exports = router;
