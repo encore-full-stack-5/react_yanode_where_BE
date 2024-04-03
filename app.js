@@ -3,7 +3,8 @@ const app = express();
 const router = express.Router();
 const port = 3000;
 
-const userRouter = require("./routes/user.js");
+const userRouter = require("./routes/user");
+const ownersRouter = require("./routes/owners/owners");
 
 const cors = require("cors");
 
@@ -22,5 +23,6 @@ app.listen(port, () => {
 });
 
 app.use("/user", userRouter);
+app.use("/owners", ownersRouter);
 
 module.exports = router;
