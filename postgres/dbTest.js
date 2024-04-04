@@ -10,6 +10,11 @@ const test = async () => {
     // const pg = require('./pg_query_modul');
     // const result = await pg.getQuery("SELECT now()", []);
     
+    //Create test data
+
+    // const result = await customer.createNewCustomer(["abcd", "0000", "까미", "01033334444", "50000", "서울시 서초구 플레이데이터", "1층", "1", "1999-01-01 00:00:00.000000", "ggami@gmail.com"]);
+    // console.log(result.rowCount);
+
     // const result = await owner.createNewOwner(["asdf","1234", "킹미람", "01011112222", "10100", "서울시 강남구 개쩌는길 77번길 7", "72층", "2", "itme@test.com","9876543210"]);
     // console.log(result.rowCount);
 
@@ -36,5 +41,43 @@ const test = async () => {
     // console.log(result.rowCount);
     // result = await product.createNewProduct(["7", "다팔림", "1000", "아무튼 인기가 좋아서 벌서 다 팔려버렸습니다!", "", "1", "0"]);
     // console.log(result.rowCount);
+
+    //Owner Test
+    // const result = await owner.OwnerByOWNER_ID("2");
+    // console.log(result.rows);
+    // const result = await owner.OwnerByLGN_ID("asdf");
+    // console.log(result.rows);
+    // const result = await owner.OwnerByLGN_IDAndPASSWD("asdf", "1234");
+    // console.log(result.rows);
+    // const result = await owner.OwnerByLGN_IDAndPASSWD("asdf", "4321");
+    // console.log(result.rows);
+    // const result = await owner.updateOwnerInfoAllByOWNER_ID(["2", "킹황미람", "1011112222", "1001", "서울시 강남구 개쩌는길 77번길 7", "72층", "2", "itme@test.com", "9876543210"]);
+    // console.log(result.rowCount);
+    // const result = await owner.acceptOwnerApproval("24");
+    // console.log(result.rowCount);
+    // const result = await owner.disableOwnerByOWNER_ID("24");
+    // console.log(result.rowCount);
+
+    //Customer Test
+    // const result = await customer.getCustomerByCUST_ID("11");
+    // console.log(result.rows);
+    // const result = await customer.getCustomerByLGN_ID("abcd");
+    // console.log(result.rows);
+    // const result = await customer.isCustomerByLGN_IDAndPASSWD("abcd", "0000");
+    // console.log(result.rowCount);
+    // const result = await customer.updateCustomerInfoAllByCUST_ID(["11", "치킨", "01033334444", "50000", "서울시 서초구 플레이데이터", "1층", "1", "1999-01-01", "ggami@gmail.com"]);
+    // console.log(result.rowCount);
+    // const result = await customer.disableCustopmerByCUST_ID("11");
+    // console.log(result.rowCount);
+
+    //Product test
+    // const res = await product.getProductByORD_ID("18");
+    // console.log(res.rows);
+    // const res = await product.getProductListBySHOP_ID("7");
+    // console.log(res.rows);
+    // const res = await product.getProductBySHOP_IDAndIsEXPSR_YN("7");
+    // console.log(res.rows);
+    const res = await product.updateProductInfoByGDS_ID(["16", "찐-한 커피", "2100", "사회인의 생명줄", "", "0", "1"]);
+    console.log(res.rowCount);
 }
 test();
