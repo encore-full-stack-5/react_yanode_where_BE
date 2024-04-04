@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
 router.get("/profile/:ownerId", async (req, res) => {
   console.log("owner 정보 조회");
   // 잘 모르겠음 잘나오긴함
-  const result = await owner.OwnerByLGN_ID(req.params.ownerId);
+  const result = await owner.OwnerByOWNER_ID(req.params.ownerId);
   res.json(result.rows[0]); // 조회된 결과 중 첫 번째 행을 반환합니다.
 });
 router.put("/profile", async (req, res) => {
