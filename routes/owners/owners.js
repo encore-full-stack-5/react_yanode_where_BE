@@ -18,18 +18,18 @@ router.post("/signup", async (req, res) => {
 // 로그인 미완성
 router.post("/login", async (req, res) => {
   console.log("owner 로그인");
-  const result = await owner.OwnerByLGN_IDAndPASSWD(lgn_id, passwd);
+  const result = await owner.OwnerByLogInIdAndPw(lgn_id, passwd);
   res.send("owner 로그인 성공");
 });
 
 router.get("/profile/:ownerId", async (req, res) => {
   console.log("owner 정보 조회");
   // 잘 모르겠음 잘나오긴함
-  const result = await owner.OwnerByOWNER_ID(req.params.ownerId);
+  const result = await owner.OwnerByOwnerId(req.params.ownerId);
   res.json(result.rows[0]); // 조회된 결과 중 첫 번째 행을 반환합니다.
 });
 router.put("/profile", async (req, res) => {
-  const result = await owner.updateOwnerInfoAllByOWNER_ID(req.body.data);
+  const result = await owner.updateOwnerInfoAllByOwnerId(req.body.data);
   res.send("owner 정보 수정");
 });
 

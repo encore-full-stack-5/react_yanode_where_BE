@@ -7,7 +7,7 @@ const product = require("../../postgres/product");
 
 router.get("/:storeId", async (req, res) => {
   console.log("owner 본인 소유 매장 조회");
-  const result = await product.getProductListBySHOP_ID(req.params.storeId);
+  const result = await product.getProductListByShopId(req.params.storeId);
   res.send(result.rows);
 });
 
@@ -19,7 +19,7 @@ router.post("/", async (req, res) => {
 
 router.put("/", async (req, res) => {
   console.log("owner 상품 정보 수정");
-  const result = await product.updateProductInfoByGDS_ID(req.body.data);
+  const result = await product.updateProductInfoByGoodsId(req.body.data);
   res.send("상품정보 수정");
 });
 
