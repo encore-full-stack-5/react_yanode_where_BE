@@ -6,6 +6,7 @@ const pg = require("./pg_query_modul");
  * @param {*} owner_id - 사업자 ID
  * @returns 해당 `Owner`의 정보가 모두 담긴 JSON
  */
+
 exports.OwnerByOwnerId = (owner_id) => {
   return pg.getQuery('SELECT * FROM owner where "OWNER_ID" = $1', [owner_id]);
 };
@@ -16,6 +17,7 @@ exports.OwnerByOwnerId = (owner_id) => {
  * @param {*} lgn_id - 계정명
  * @returns 해당 `Owner`의 정보가 모두 담긴 JSON
  */
+
 exports.OwnerByLogInId = (lgn_id) => {
   return pg.getQuery('SELECT * FROM owner where "LGN_ID" = $1', [lgn_id]);
 };
@@ -26,6 +28,7 @@ exports.OwnerByLogInId = (lgn_id) => {
  * @param {*} passwd - 암호
  * @returns if correct `\<return>.rowcount = 1`, else `\<return>.rowcount = 0`
  */
+
 exports.OwnerByLogInIdAndPw = (lgn_id, passwd) => {
   return pg.getQuery(
     'SELECT * FROM owner where "LGN_ID" = $1 AND "PASSWD" = $2',
