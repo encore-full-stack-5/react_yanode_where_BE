@@ -6,7 +6,7 @@ const pg = require("./pg_query_modul");
  * @param {*} shop_id - 매장 ID
  * @returns 해당 `Shop`의 정보가 모두 담긴 JSON
  */
-exports.getShopBySHOP_ID = (shop_id) => {
+exports.getShopByShopId = (shop_id) => {
   return pg.getQuery('SELECT * FROM shop where "SHOP_ID" = $1', [shop_id]);
 };
 
@@ -15,7 +15,7 @@ exports.getShopBySHOP_ID = (shop_id) => {
  * @param {*} owner_id - 계정명
  * @returns 해당 `Shop`의 정보가 모두 담긴 JSON List
  */
-exports.getShopListByOWNER_ID = (owner_id) => {
+exports.getShopListByOwnerId = (owner_id) => {
   return pg.getQuery('SELECT * FROM shop where "OWNER_ID" = $1', [owner_id]);
 };
 
@@ -24,7 +24,7 @@ exports.getShopListByOWNER_ID = (owner_id) => {
  * @param {*} ctgry - 카테고리 이름
  * @returns 해당 `Shop`의 리스트가 담긴 JSON List
  */
-exports.getShopListByCTGRY = (ctgry) => {
+exports.getShopListByCategory = (ctgry) => {
   return pg.getQuery('SELECT * FROM shop where "CTGRY" = $1', [ctgry]);
 };
 
@@ -33,7 +33,7 @@ exports.getShopListByCTGRY = (ctgry) => {
  * @param {*} shop_nm - 매장 이름
  * @returns 해당 `Shop`의 정보가 모두 담긴 Json
  */
-exports.getShopSearchBySHOP_NM = (shop_nm) => {
+exports.getShopSearchByShopNum = (shop_nm) => {
   return pg.getQuery('SELECT * FROM shop where "SHOP_NM" = $1', [shop_nm]);
 };
 
@@ -56,9 +56,9 @@ exports.createNewShop = (props) => {
  * @param {*} props - 업데이트할 내역을 포함한 `Shop`의 전체 Info
  * @returns `<return>.rowcount = 1`
  */
-exports.updateShopInfoAllBySHOP_ID = (props) => {
+exports.updateShopInfoAllByShopId = (props) => {
   return pg.updateQuery(
-    'UPDATE shop SET "OWNER_ID" = $2, "SHOP_NM" = $3, "CTGRY" = $4, "ZIPN" = $5, "BSC_ADDR" = $6, "DTL_ADDR" = $7, "SHOP_DESC" = $8, "OPEN_TIME" = $9, "CLOSE_TIME" = $10, "IMG" = $11 WHERE "SHOP_ID" = $1',
+    "UPDATE shop SET OWNER_ID = $2, SHOP_NM = $3, CTGRY = $4, ZIPN = $5, BSC_ADDR = $6, DTL_ADDR = $7, SHOP_DESC = $8, OPEN_TIME = $9, CLOSE_TIME = $10, IMG = $11 WHERE SHOP_ID = $1",
     [...props]
   );
 };
@@ -68,7 +68,7 @@ exports.updateShopInfoAllBySHOP_ID = (props) => {
  * @param {*} shop_id - 고객 ID
  * @returns `<return>.rowcount = 1`
  */
-exports.disableShopBySHOP_ID = (shop_id) => {
+exports.disableShopByShopId = (shop_id) => {
   return pg.updateQuery("UPDATE shop SET USE_YN = 0 WHERE SHOP_ID = $1", [
     shop_id,
   ]);
