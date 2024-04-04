@@ -10,7 +10,7 @@ router.get("/:userid", (req, res) => {
   res.send(`${userid} 님 주문 목록 조회화면입니다.`);
 });
 
-router.get("/:orderid", (req, res) => {
+router.get("/:orderid/details", (req, res) => {
   const { orderid } = req.params;
   res.send(`${orderid} 주문 상세 조회화면입니다.`);
 });
