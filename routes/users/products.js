@@ -9,7 +9,8 @@ router.get("/", (req, res) => {
 
 router.get("/:storeId", async (req, res) => {
   console.log("store id의 product 조회");
-  const result = await product.getProductListBySHOP_ID(req.params.storeId);
+  const result = await product.getProductByShopIdAndExposure(req.params.storeId);
+  console.log(result.rows);
   res.send(result.rows);
 });
 

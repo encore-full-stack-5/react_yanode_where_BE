@@ -19,7 +19,8 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   console.log("owner 로그인");
   const result = await owner.OwnerByLogInIdAndPw(req.body.lgn_id, req.body.passwd);
-  res.send(result.rowCount?true:false);
+  console.log(result.rows[0]);
+  res.send(result.rowCount?result.rows[0]:false);
 });
 
 router.get("/profile/:ownerId", async (req, res) => {

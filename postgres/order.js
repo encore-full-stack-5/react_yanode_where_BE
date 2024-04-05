@@ -20,18 +20,18 @@ exports.createNewOrder = (props) => {
 exports.getOrderInfoForCustomerByCustomerId = (cust_id) => {
   return pg.getQuery(
     'SELECT '+
-    'o."ORD_ID" AS "ORD_ID", '+
-    'p."GDS_NM" AS "GDS_NM", '+
-    'o."ORD_QTY" AS "ORD_QTY", '+
-    'o."ORD_TPRC" AS "ORD_TPRC", '+
-    's."SHOP_NM" AS "SHOP_NM", '+
-    'd."DLV_STATE" AS "DLV_STATE", '+
-    'op."ORD_STATE" AS "ORD_STATE" '+
+      'o."ORD_ID" AS "ORD_ID", '+
+      'p."GDS_NM" AS "GDS_NM", '+
+      'o."ORD_QTY" AS "ORD_QTY", '+
+      'o."ORD_TPRC" AS "ORD_TPRC", '+
+      's."SHOP_NM" AS "SHOP_NM", '+
+      'd."DLV_STATE" AS "DLV_STATE", '+
+      'op."ORD_STATE" AS "ORD_STATE" '+
     'FROM orders as o '+
-    'INNER JOIN shop AS s ON s."SHOP_ID" = o."SHOP_ID" '+
-    'INNER JOIN order_product AS op ON op."ORD_ID" = o."ORD_ID" '+
-    'INNER JOIN product AS p ON p."GDS_ID" = op."GDS_ID" '+
-    'INNER JOIN delivery AS d ON d."ORD_ID" = o."ORD_ID" '+
+      'INNER JOIN shop AS s ON s."SHOP_ID" = o."SHOP_ID" '+
+      'INNER JOIN order_product AS op ON op."ORD_ID" = o."ORD_ID" '+
+      'INNER JOIN product AS p ON p."GDS_ID" = op."GDS_ID" '+
+      'INNER JOIN delivery AS d ON d."ORD_ID" = o."ORD_ID" '+
     'WHERE o."CUST_ID" = $1',
     [cust_id]
   );
@@ -67,9 +67,38 @@ exports.getOrderDetailInfoOptionsForCustomerByOrderId = (ord_id) => {
     'FROM orders as o '+
     'INNER JOIN order_product AS op ON op."ORD_ID" 	= o."ORD_ID" '+
     'INNER JOIN product AS p ON p."GDS_ID" = op."GDS_ID" '+
-    'INNER JOIN order_product_option AS opp ON opp."ORD_GDS_ID" = op."ORD_GDS_ID" '+
-    'INNER JOIN option AS opt ON opt."OPTION_ID" = opp."OPTION_ID" '+
+    'LEFT JOIN order_product_option AS opp ON opp."ORD_GDS_ID" = op."ORD_GDS_ID" '+
+    'LEFT JOIN option AS opt ON opt."OPTION_ID" = opp."OPTION_ID" '+
     'WHERE o."ORD_ID" = $1',
     [ord_id]
+  );
+}
+
+exports.getOrderInfoForOwnerByOwnerId = (owner_id) => {
+  return pg.getQuery(
+    'SELECT '+
+      'o."ORD_ID" AS "ORD_ID", '+
+      'p."GDS_NM" AS "GDS_NM", '+
+      'o."ORDRR_NM" AS "ORDRR_NM", '+
+      'o."ORD_DT" AS "ORD_DT", '+
+      'op."ORD_STATE" AS "ORD_STATE", '+
+      'o."RCVR_NM" AS "RCVR_NM", '+
+      'o."RCVR_TELNO" AS "RCVR_TELNO", '+
+      'o."RCVR_ZIPN" AS "RCVR_ZIPN", '+
+      'o."RCVR_BSC_ADDR" AS "RCVR_BSC_ADDR", '+
+      'o."RCVR_DTL_ADDR" AS "RCVR_DTL_ADDR", '+
+      'o."ORD_QTY" AS "ORD_QTY", '+
+      'p."GDS_PRC" AS "GDS_PRC", '+
+      'opt."OPTION_NM" AS "OPTION_NM", '+
+      'opt."OPTION_PRC" AS "OPTION_PRC", '+
+      'o."DLV_PRC" AS "DLV_PRC" '+
+    'FROM orders as o '+
+      'INNER JOIN shop AS s ON s."SHOP_ID" = o."SHOP_ID" '+
+      'INNER JOIN order_product AS op ON op."ORD_ID" = o."ORD_ID" '+
+      'INNER JOIN product AS p ON p."GDS_ID" = op."GDS_ID" '+
+      'LEFT JOIN order_product_option AS opp ON opp."ORD_GDS_ID" = op."ORD_GDS_ID" '+
+      'LEFT JOIN option AS opt ON opt."OPTION_ID" = opp."OPTION_ID" '+
+    'WHERE o."SHOP_ID" = $1',
+    [owner_id]
   );
 }

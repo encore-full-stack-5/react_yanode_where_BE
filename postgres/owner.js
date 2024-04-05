@@ -31,7 +31,7 @@ exports.OwnerByLogInId = (lgn_id) => {
 
 exports.OwnerByLogInIdAndPw = (lgn_id, passwd) => {
   return pg.getQuery(
-    'SELECT * FROM owner where "LGN_ID" = $1 AND "PASSWD" = $2',
+    'SELECT "OWNER_ID" FROM owner where "LGN_ID" = $1 AND "PASSWD" = $2',
     [lgn_id, passwd]
   );
 };

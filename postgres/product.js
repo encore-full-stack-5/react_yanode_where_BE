@@ -40,7 +40,17 @@ exports.getProductByShopIdAndExposure = (shop_id) => {
  */
 exports.createNewProduct = (props) => {
   return pg.updateQuery(
-    `INSERT INTO product("SHOP_ID","GDS_NM","GDS_PRC","GDS_DESC","IMG","SOLDOUT_YN","EXPSR_YN","USE_YN") values ($1, $2, $3, $4, $5, $6, $7, 1)`,
+    'INSERT INTO product('+
+      '"SHOP_ID", '+
+      '"GDS_NM", '+
+      '"GDS_DESC", '+
+      '"GDS_PRC", '+
+      '"IMG", '+
+      '"SOLDOUT_YN", '+
+      '"EXPSR_YN", '+
+      '"USE_YN") '+
+    'values '+
+      '($1, $2, $3, $4, \'\', $5, $6, 1)',
     [...props]
   );
 };
@@ -52,7 +62,7 @@ exports.createNewProduct = (props) => {
  */
 exports.updateProductInfoByGoodsId = (props) => {
   return pg.updateQuery(
-    `UPDATE product SET  "GDS_NM" = $2, "GDS_PRC" = $3, "GDS_DESC" = $4, "IMG" = $5, "SOLDOUT_YN" = $6, "EXPSR_YN" = $7  WHERE "GDS_ID" = $1`,
+    `UPDATE product SET "GDS_NM" = $2, "GDS_DESC" = $3, "GDS_PRC" = $4, "IMG" = '', "SOLDOUT_YN" = $5, "EXPSR_YN" = $6  WHERE "GDS_ID" = $1`,
     [...props]
   );
 };
