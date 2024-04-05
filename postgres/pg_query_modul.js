@@ -2,7 +2,7 @@ const { Client } = require("pg");
 
 const DBinit = {
     user: "where_db_admin",
-    host: "192.168.80.39",
+    host: "220.78.7.18",
     database: "where_db",
     password: "1234",
     port: 5432,

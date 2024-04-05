@@ -15,11 +15,11 @@ router.post("/signup", async (req, res) => {
   res.send("회원가입 성공");
 });
 
-// 로그인 미완성
+
 router.post("/login", async (req, res) => {
   console.log("owner 로그인");
-  const result = await owner.OwnerByLogInIdAndPw(lgn_id, passwd);
-  res.send("owner 로그인 성공");
+  const result = await owner.OwnerByLogInIdAndPw(req.body.lgn_id, req.body.passwd);
+  res.send(result.rowCount?true:false);
 });
 
 router.get("/profile/:ownerId", async (req, res) => {

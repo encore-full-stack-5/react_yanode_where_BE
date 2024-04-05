@@ -2,6 +2,16 @@ const pg = require("./pg_query_modul");
 
 //useyn같은 필요없는거 제외하는 수정필요
 /**
+ * `Shop`Table에서 매장의 정보를 지정한 수만큼 반환합니다.
+ * @param {*} shop_id - 매장 ID
+ * @returns `Shop`의 정보가 모두 담긴 JSON
+ */
+exports.getShopByLimit = (limit) => {
+  return pg.getQuery('SELECT * FROM shop LIMIT $1', [limit]);
+};
+
+//useyn같은 필요없는거 제외하는 수정필요
+/**
  * `Shop`Table에서 데이터ID와 일치하는 매장의 정보를 반환합니다.
  * @param {*} shop_id - 매장 ID
  * @returns 해당 `Shop`의 정보가 모두 담긴 JSON

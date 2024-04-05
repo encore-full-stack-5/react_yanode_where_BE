@@ -6,7 +6,7 @@ const product = require("../../postgres/product");
 // owner 상품 관리
 
 router.get("/:storeId", async (req, res) => {
-  console.log("owner 본인 소유 매장 조회");
+  console.log("owner 본인 소유 상품 조회");
   const result = await product.getProductListByShopId(req.params.storeId);
   res.send(result.rows);
 });

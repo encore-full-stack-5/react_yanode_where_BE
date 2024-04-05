@@ -3,8 +3,10 @@ const router = express.Router();
 
 const shop = require("../../postgres/shop");
 
-router.get("/", (req, res) => {
-  res.send("매장 목록 조회 화면입니다");
+router.get("/:limit", async(req, res) => {
+  console.log("매장 목록 조회 화면입니다");
+  const result = await shop.getShopByLimit(req.params.limit );
+  res.send(result.rows);
 });
 
 router.get("/:storeId", async (req, res) => {
