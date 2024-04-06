@@ -43,7 +43,22 @@ exports.OwnerByLogInIdAndPw = (lgn_id, passwd) => {
  */
 exports.createNewOwner = (props) => {
   return pg.updateQuery(
-    'INSERT INTO owner("LGN_ID", "PASSWD", "OWNER_NM", "TELNO", "ZIPN", "BSC_ADDR", "DTL_ADDR", "GENDER", "EMAIL", "BRNO", "APRV_STS_CD", "JOIN_DT", "USE_YN") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 0, now(), 1)',
+    'INSERT INTO owner('+
+      '"LGN_ID", '+
+      '"PASSWD", '+
+      '"OWNER_NM", '+
+      '"TELNO", '+
+      '"ZIPN", '+
+      '"BSC_ADDR", '+
+      '"DTL_ADDR", '+
+      '"GENDER", '+
+      '"EMAIL", '+
+      '"BRNO", '+
+      '"APRV_STS_CD", '+
+      '"JOIN_DT", '+
+      '"USE_YN" '+
+    ') values '+
+      '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, 0, now(), 1)',
     [...props]
   );
 };
@@ -55,7 +70,15 @@ exports.createNewOwner = (props) => {
  */
 exports.updateOwnerInfoAllByOwnerId = (props) => {
   return pg.updateQuery(
-    'UPDATE owner SET "OWNER_NM" = $2, "TELNO" = $3, "ZIPN" = $4, "BSC_ADDR" = $5, "DTL_ADDR" = $6, "GENDER" = $7, "EMAIL" = $8, "BRNO" = $9 WHERE "OWNER_ID" = $1',
+    'UPDATE owner SET '+
+      '"OWNER_NM" = $2, '+
+      '"TELNO" = $3, '+
+      '"ZIPN" = $4, '+
+      '"BSC_ADDR" = $5, '+
+      '"DTL_ADDR" = $6, '+
+      '"EMAIL" = $7, '+
+    'WHERE '+
+      '"OWNER_ID" = $1',
     [...props]
   );
 };

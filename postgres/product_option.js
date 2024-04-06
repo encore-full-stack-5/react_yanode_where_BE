@@ -15,3 +15,13 @@ exports.updateOptionByOptionId = (props) => {
 exports.disalbeOptionByOptionId = (option_id) => {
   return pg.updateQuery('UPDATE option SET "USE_YN" = 0 WHERE "OPTION_ID" = $1', [option_id]);
 };
+
+exports.createOptionsByGoodsId = (props) => {
+  return pg.updateQuery(
+    'INSERT INTO option'+
+      '(GDS_ID, OPTION_NM, OPTION_PRC, SOLDOUT_YN, EXPSR_YN, USE_YN) '+
+    'VALUES '+
+      '($1, $2, $3, $4, $5, $6)'
+    ,[...props]
+  );
+}

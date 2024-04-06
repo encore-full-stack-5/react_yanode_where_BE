@@ -8,9 +8,13 @@ router.get("/:storeId", async (req, res) => {
   const result = await order.getOrderInfoForOwnerByOwnerId(req.params.storeId);
   res.send(result.rows);
 });
-router.put("/:orderId/status", (req, res) => {
-  res.send("owner 주문상태 update");
+
+router.put("/status", async (req, res) => {
+  console.log(`${req.body.data[0]}번 주문상품 상태 변경`);
+  const result = await order.updateOrderState([...req.body.data]);
+  res.send(result.rowCount?"주문상태 변경 성공":"주문상태 변경 실패");
 });
+
 router.get("/:orderId/:storeId", (req, res) => {
   res.send("owner 주문 상세 조회");
 });
