@@ -16,7 +16,8 @@ exports.getCustomerByCustomerId = (cust_id) => {
       '"BSC_ADDR", '+
       '"DTL_ADDR", '+
       '"BRTHDAY"'+
-    'FROM customer where "CUST_ID" = $1'
+    'FROM customer '+
+    'WHERE "CUST_ID" = $1 AND "USE_YN" = \'1\''
     , [cust_id]);
 };
 
@@ -29,8 +30,25 @@ exports.getCustomerByLogInId = (lgn_id) => {
   return pg.getQuery(
     'SELECT "LGN_ID" '+
     'FROM customer '+
-    'WHERE "LGN_ID" = $1'
+    'WHERE "LGN_ID" = $1 AND "USE_YN" = \'1\''
     , [lgn_id]);
+};
+
+exports.getOrderNumByCustomerId = (cust_id) => {
+  return pg.getQuery(
+    'SELECT "ORD_NO" '+
+    'FROM customer '+
+    'WHERE "CUST_ID" = $1 AND "USE_YN" = \'1\''
+    , [cust_id]);
+};
+
+exports.addOrderNumByCustomerId = (cust_id, ord_no) => {
+  return pg.updateQuery(
+    'UPDATE customer '+
+    'SET "ORD_NO" = $2 '+
+    'WHERE "CUST_ID" = $1 AND "USE_YN" = \'1\'',
+    [cust_id, ord_no + 1]
+  );
 };
 
 /**
@@ -47,7 +65,7 @@ exports.isCustomerByLogInIdAndPw = (lgn_id, passwd) => {
       '"LGN_ID"'+
     'FROM customer '+
     'WHERE '+
-      '"LGN_ID" = $1 AND "PASSWD" = $2',
+      '"LGN_ID" = $1 AND "PASSWD" = $2 AND "USE_YN" = \'1\'',
     [lgn_id, passwd]
   );
 };

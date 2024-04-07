@@ -12,12 +12,14 @@ router.get("/:ownerId", async (req, res) => {
 
 router.post("/", async (req, res) => {
   console.log(`${req.body.data[0]}번 owner의 매장 추가`);
+  console.log(req.body.data);
   const result = await shop.createNewShop(req.body.data);
   res.send(result.rows?"매장 등록 성공":"매장 등록 실패");
 });
 
 router.put("/", async (req, res) => {
   console.log(`${req.body.data}번 매장 정보 수정`);
+  console.log(req.body.data);
   const result = await shop.updateShopInfoAllByShopId(req.body.data);
   res.send(result.rows?"매장 수정 성공":"매장 수정 실패");
 });

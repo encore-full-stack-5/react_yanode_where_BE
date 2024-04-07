@@ -5,7 +5,16 @@ exports.getAllOptionsByGoodsId = (gds_id) => {
 };
 
 exports.getAvailableOptionsByGoodsId = (gds_id) => {
-  return pg.getQuery('SELECT * FROM option WHERE "GDS_ID" = $1 WHERE "EXPSR_YN" = 1', [gds_id]);
+  return pg.getQuery(
+    'SELECT '+
+      '"OPTION_ID", '+
+      '"OPTION_NM", '+
+      '"OPTION_PRC", '+
+      '"SOLDOUT_YN" '+
+    'FROM option '+
+    'WHERE '+
+      '"GDS_ID" = $1 AND "EXPSR_YN" = \'1\' AND "USE_YN" = \'1\''
+    , [gds_id]);
 };
 
 exports.updateOptionByOptionId = (props) => {

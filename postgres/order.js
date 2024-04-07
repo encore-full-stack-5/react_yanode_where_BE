@@ -1,23 +1,56 @@
 const pg = require("./pg_query_modul");
 
-exports.getOrderIDByCustomerId = (cust_id) => {
+exports.getOrderByCustomerId = (cust_id) => {
   return pg.getQuery('SELECT * FROM orders where "CUST_ID" = $1', [cust_id]);
 };
-exports.getOrderIDByShopId = (shop_id) => {
+exports.getOrderByShopId = (shop_id) => {
   return pg.getQuery('SELECT * FROM orders where "SHOP_ID" = $1', [shop_id]);
 };
-exports.getOrderIDByOrderId = (ord_id) => {
+exports.getOrderByOrderId = (ord_id) => {
   return pg.getQuery('SELECT * FROM orders where "ORD_ID" = $1', [ord_id]);
 };
+exports.getOrderIDByOrderNum = (ord_no) => {
+  return pg.getQuery('SELECT "ORD_ID" FROM orders where "CUST_ORD_NO" = $1', [ord_no]);
+};
 
-// exports.createNewOrder = (props) => {
-//   return pg.updateQuery(
-//     'INSERT INTO orders("CUST_ID", "SHOP_ID", "ORD_QTY", "ORD_TPRC", "DLV_PRC", "ORDRR_NM", "RCVR_NM", "RCVR_TELNO", "RCVR_ZIPN", "RCVR_BSC_ADDR", "RCVR_DTL_ADDR", "WBILL_NO","ORD_DT") values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10,$11,$12,$13, now() )',
-//     [...props]
-//   );
-// };
-exports.createNewOrder= (props) => {
-  
+exports.createNewOrder = (props) => {
+  return pg.updateQuery(
+    'INSERT INTO orders('+
+      '"CUST_ID", '+
+      '"SHOP_ID", '+
+      '"ORD_TQTY", '+
+      '"ORD_TPRC", '+
+      '"DLV_PRC", '+
+      '"ORDRR_NM", '+
+      '"RCVR_NM", '+
+      '"RCVR_TELNO", '+
+      '"RCVR_ZIPN", '+
+      '"RCVR_BSC_ADDR", '+
+      '"RCVR_DTL_ADDR", '+
+      '"WBILL_NO", '+
+      '"PAY_ID", '+
+      '"CUST_ORD_NO", ' +
+      '"DLV_ID", ' +
+      '"ORD_DT" '+
+    ') values '+
+      '($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, 1000, now())'
+    ,[...props]
+  );
+};
+
+exports.createNewOrderProduct = (props) => {
+  console.log(props);
+  return pg.updateQuery(
+    'INSERT INTO order_product('+
+      '"ORD_ID", '+
+      '"GDS_ID", '+
+      '"ORD_STATE", '+
+      '"GDS_NM", '+
+      '"GDS_PRC", '+
+      '"GDS_QTY" '+
+    ') values ($1, $2, 100, $3, $4, $5)'
+    ,[...props]
+  )
 }
 
 exports.getOrderInfoForCustomerByCustomerId = (cust_id) => {

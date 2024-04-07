@@ -5,8 +5,10 @@ const storesRouter = require("./stores");
 const ordersRouter = require("./orders");
 const productsRouter = require("./products");
 
-router.post("/signup", (req, res) => {
-  res.send("회원가입 화면입니다.");
+router.get("/profile/:cust_id", async (req, res) => {
+  console.log(`${req.params.cust_id}번 customer의 정보 조회`);
+  const result = await customer.getCustomerByCustomerId(req.params.cust_id);
+  res.send(result.rows);
 });
 
 router.post("/login", async (req, res) => {
@@ -15,14 +17,8 @@ router.post("/login", async (req, res) => {
   res.send(result.rowCount?result.rows[0]:false);
 });
 
-router.get("/profile/:cust_id", async (req, res) => {
-    const result = await customer.getCustomerByCustomerId(req.params.cust_id);
-    console.log(`${req.params.cust_id}번 고객의 정보 조회입니다.`);
-    res.send(result.rows);
-});
-
 router.post("/edit", async (req, res) => {
-    console.log(`${req.body.data[0]}번 고객 정보 수정`);
+    console.log(`${req.body.data[0]}번 customer 정보 수정`);
     console.log(req.body.data);
     const result = await customer.updateCustomerInfoAllByCustId([...req.body.data]);
     res.send(result.rowCount?"고객 정보 수정 성공":"고객 정보 수정 실패");

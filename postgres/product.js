@@ -17,7 +17,7 @@ exports.getProductByOrderId = (gds_id) => {
  * @returns 해당 `Product`의 리스트가 담긴 JSON List
  */
 exports.getProductListByShopId = (shop_id) => {
-  return pg.getQuery('SELECT * FROM product where "SHOP_ID" = $1', [shop_id]);
+  return pg.getQuery('SELECT * FROM product where "SHOP_ID" = $1 AND "USE_YN" = \'1\'', [shop_id]);
 };
 
 /**
@@ -28,8 +28,24 @@ exports.getProductListByShopId = (shop_id) => {
  */
 exports.getProductByShopIdAndExposure = (shop_id) => {
   return pg.getQuery(
-    'SELECT * FROM product where "EXPSR_YN" = $1 AND "SHOP_ID" = $2',
-    ["1", shop_id]
+    'SELECT '+
+      'p."GDS_ID" AS "GDS_ID", '+
+      'p."GDS_NM" AS "GDS_NM", '+
+      'p."GDS_DESC" AS "GDS_DESC", '+
+      'p."GDS_PRC" AS "GDS_PRC", '+
+      'p."SOLDOUT_YN" AS "GDS_SOLDOUT_YN", '+
+      'COUNT (o."OPTION_ID") FILTER (WHERE (o."GDS_ID" = p."GDS_ID")) AS "OPTION_NUM" '+
+    'FROM product AS p '+
+      'LEFT JOIN option AS o ON o."GDS_ID" = p."GDS_ID" '+
+    'WHERE '+
+      'p."EXPSR_YN" = \'1\' AND p."USE_YN" = \'1\' AND p."SHOP_ID" = $1 '+
+    'GROUP BY '+
+      'p."GDS_ID", '+
+      'p."GDS_NM", '+
+      'p."GDS_DESC", '+
+      'p."GDS_PRC", '+
+      'p."SOLDOUT_YN"'
+    ,[shop_id]
   );
 };
 
@@ -72,7 +88,7 @@ exports.updateProductInfoByGoodsId = (props) => {
  * @param {*} gds_id - 상품 ID
  * @returns `<return>.rowcount = 1`
  */
-exports.disableProductYNByGoodsId = (gds_id) => {
+exports.disableProductByGoodsId = (gds_id) => {
   return pg.updateQuery('UPDATE product SET "USE_YN" = 0 WHERE "GDS_ID" = $1', [
     gds_id,
   ]);

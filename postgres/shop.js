@@ -7,7 +7,12 @@ const pg = require("./pg_query_modul");
  * @returns `Shop`의 정보가 모두 담긴 JSON
  */
 exports.getShopByLimit = (limit) => {
-  return pg.getQuery('SELECT * FROM shop LIMIT $1', [limit]);
+  return pg.getQuery(
+    'SELECT * '+
+    'FROM shop '+
+    'WHERE "USE_YN" = \'1\' '+
+    'LIMIT $1'
+    , [limit]);
 };
 
 //useyn같은 필요없는거 제외하는 수정필요
@@ -26,7 +31,13 @@ exports.getShopByShopId = (shop_id) => {
  * @returns 해당 `Shop`의 정보가 모두 담긴 JSON List
  */
 exports.getShopListByOwnerId = (owner_id) => {
-  return pg.getQuery('SELECT * FROM shop where "OWNER_ID" = $1', [owner_id]);
+  return pg.getQuery(
+    'SELECT '+
+      '* '+
+    'FROM shop '+
+    'WHERE '+
+      '"OWNER_ID" = $1 AND "USE_YN" = \'1\''
+    , [owner_id]);
 };
 
 /**
@@ -35,7 +46,7 @@ exports.getShopListByOwnerId = (owner_id) => {
  * @returns 해당 `Shop`의 리스트가 담긴 JSON List
  */
 exports.getShopListByCategory = (ctgry) => {
-  return pg.getQuery('SELECT * FROM shop where "CTGRY" = $1', [ctgry]);
+  return pg.getQuery('SELECT * FROM shop where "CTGRY" = $1 AND "USE_YN" = \'1\'', [ctgry]);
 };
 
 /**
