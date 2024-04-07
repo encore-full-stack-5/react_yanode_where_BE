@@ -1,9 +1,10 @@
 const express = require("express");
 const app = express();
 const router = express.Router();
-const port = 3000;
+const port = 3001;
 
-const userRouter = require("./routes/user.js");
+const usersRouter = require("./routes/users/users");
+const ownersRouter = require("./routes/owners/owners");
 
 const cors = require("cors");
 
@@ -21,6 +22,7 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-app.use("/user", userRouter);
+app.use("/users", usersRouter);
+app.use("/owners", ownersRouter);
 
 module.exports = router;
